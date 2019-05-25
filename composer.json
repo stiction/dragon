@@ -1,0 +1,23 @@
+{
+    "name": "stiction/dragon",
+    "type": "library",
+    "description": "tools related to Chinese",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "stiction",
+            "email": "258757028@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Stiction\\Dragon\\": "src/"
+        }
+    }
+}
