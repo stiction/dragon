@@ -26,3 +26,19 @@ var_dump($name->randomFirstName());
 // 随机全名
 var_dump($name->randomFullName());
 ```
+
+### 格言
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Stiction\Dragon\Inspiring;
+
+$inspiring = new Inspiring;
+
+// string 一条格言
+var_dump($inspiring->one());
+// string[] 所有格言
+var_dump($inspiring->all());
+```
