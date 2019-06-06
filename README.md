@@ -96,3 +96,18 @@ array(6) {
 */
 var_dump($parser->parse('36112319820726197x'));
 ```
+
+### 银行卡
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Stiction\Dragon\Bank;
+
+$bank = new Bank;
+
+// 计算银行卡校验位数字
+// int(7)
+var_dump($bank->calcCheckNumber('622841407026350141'));
+```
