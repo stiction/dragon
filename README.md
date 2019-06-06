@@ -62,3 +62,37 @@ var_dump($region->find('440300'));
 // 查找子区划
 var_dump($region->subregions('440300'));
 ```
+
+### 身份证
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Stiction\Dragon\IdentityParser;
+
+$parser = new IdentityParser;
+
+// 计算校验位，大写表示
+// string(1) "X"
+var_dump($parser->calcCheckChar('36112319820726197'));
+
+// 解析身份证信息，分别为身份证完整号码、行政区划码、生日、序号、校验位、性别（F|M)
+/*
+array(6) {
+  ["whole"]=>
+  string(18) "36112319820726197X"
+  ["region"]=>
+  string(6) "361123"
+  ["birthday"]=>
+  string(10) "1982-07-26"
+  ["ordinal"]=>
+  string(3) "197"
+  ["check"]=>
+  string(1) "X"
+  ["gender"]=>
+  string(1) "M"
+}
+*/
+var_dump($parser->parse('36112319820726197x'));
+```
