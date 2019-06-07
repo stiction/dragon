@@ -12,6 +12,18 @@ class Misc
      */
     public function checkMobile(string $mobile): bool
     {
-        return (bool)preg_match('/^1[3456789]\d{9}$/', $mobile);
+        if (strlen($mobile) !== 11) {
+            return false;
+        }
+        if (!ctype_digit($mobile)) {
+            return false;
+        }
+        if ($mobile[0] !== '1') {
+            return false;
+        }
+        if (!in_array($mobile[1], ['3', '4', '5', '6', '7', '8', '9'], true)) {
+            return false;
+        }
+        return true;
     }
 }
