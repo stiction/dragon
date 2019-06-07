@@ -58,6 +58,16 @@ var_dump($region->all());
 // 省级区划
 var_dump($region->provinces());
 // 查找指定区划
+/*
+array(3) {
+  ["id"]=>
+  string(6) "440300"
+  ["name"]=>
+  string(9) "深圳市"
+  ["parent_id"]=>
+  string(6) "440000"
+}
+*/
 var_dump($region->find('440300'));
 // 查找子区划
 var_dump($region->subregions('440300'));
@@ -95,6 +105,8 @@ array(6) {
 }
 */
 var_dump($parser->parse('36112319820726197x'));
+// bool(false)
+var_dump($parser->parse('361123198207261976'));
 ```
 
 ### 银行卡
