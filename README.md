@@ -111,3 +111,18 @@ $bank = new Bank;
 // int(7)
 var_dump($bank->calcCheckNumber('622841407026350141'));
 ```
+
+### 其他
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Stiction\Dragon\Misc;
+
+$misc = new Misc;
+
+// 检查手机号码
+// bool(true)
+var_dump($misc->checkMobile('13800138000'));
+```
