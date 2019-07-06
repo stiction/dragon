@@ -124,6 +124,35 @@ $bank = new Bank;
 var_dump($bank->calcCheckNumber('622841407026350141'));
 ```
 
+### 农历
+
+支持公历范围：1900-01-31（含） - 2101-01-28（含）  
+支持农历范围：1900年正月初一（含） - 2100年腊月廿九（含）  
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Stiction\Dragon\LunarDate;
+
+$timestamp = 0;
+$date = new LunarDate($timestamp);
+
+/*
+array(4) {
+  ["year"]=>
+  int(1969) 1969年
+  ["month"]=>
+  int(11) 冬月
+  ["day"]=>
+  int(24) 廿四
+  ["leap"]=>
+  bool(false) 不是闰月
+}
+*/
+var_dump($date->info());
+```
+
 ### 其他
 
 ```php
