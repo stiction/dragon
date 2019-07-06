@@ -135,9 +135,9 @@ require 'vendor/autoload.php';
 
 use Stiction\Dragon\LunarDate;
 
+/******** 公历时间戳转农历 ********/
 $timestamp = 0;
 $date = new LunarDate($timestamp);
-
 /*
 array(4) {
   ["year"]=>
@@ -151,6 +151,20 @@ array(4) {
 }
 */
 var_dump($date->info());
+
+/******** 农历转公历时间戳 ********/
+$timestamp = LunarDate::toSolar(1969, 11, 24);
+$date = new \DateTime('@'.$timestamp);
+$date->setTimeZone(new DateTimeZone('Asia/Shanghai'));
+// string(10) "1970-01-01"
+var_dump($date->format('Y-m-d'));
+
+// 闰月
+$timestamp = LunarDate::toSolar(2020, 4, 5, true);
+$date = new \DateTime('@'.$timestamp);
+$date->setTimeZone(new DateTimeZone('Asia/Shanghai'));
+// string(10) "2020-05-27"
+var_dump($date->format('Y-m-d'));
 ```
 
 ### 其他

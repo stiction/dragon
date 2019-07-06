@@ -43,20 +43,69 @@ class LunarDate
         return $this->info;
     }
 
+    /**
+     * 转为公历
+     */
+    public static function toSolar(int $year, int $month, int $day, bool $leap = false): int
+    {
+        if ($year < self::MIN_YEAR || $year > self::MAX_YEAR) {
+            throw new InvalidArgumentException("invalid $year $month $day $leap");
+        }
+        if ($month < self::MIN_MONTH || $month > self::MAX_MONTH) {
+            throw new InvalidArgumentException("invalid $year $month $day $leap");
+        }
+        $yearInfo = self::yearInfo($year);
+        if ($leap) {
+            $leapMonth = $yearInfo['leap_month'];
+            if ($leapMonth !== $month) {
+                throw new InvalidArgumentException("invalid $year $month $day $leap");
+            }
+            $monthDays = $yearInfo['leap_month_days'];
+        } else {
+            $monthDays = $yearInfo[$month];
+        }
+        if ($day < 1 || $day > $monthDays) {
+            throw new InvalidArgumentException("invalid $year $month $day $leap");
+        }
+
+        $days = 0;
+        for ($y = self::MIN_YEAR; $y < $year; ++$y) {
+            $yInfo = self::yearInfo($y);
+            $days += $yInfo['total_days'];
+        }
+        $leapMonth = $yearInfo['leap_month'];
+        if ($leapMonth && $leapMonth < $month) {
+            $days += $yearInfo['leap_month_days'];
+        }
+        if ($leap) {
+            $toMonth = $month;
+        } else {
+            $toMonth = $month - 1;
+        }
+        for ($m = self::MIN_MONTH; $m <= $toMonth; ++$m) {
+            $days += $yearInfo[$m];
+        }
+        $days += $day - 1;
+        $from = self::timestampForDate(self::FIRST_DAY);
+        $timestamp = $from + self::SECONDS_PER_DAY * $days;
+        $timestamp += 3600; // some time points are weird
+        return $timestamp;
+    }
+
     protected function parse()
     {
-        $from = $this->timestampForDate(self::FIRST_DAY);
+        $from = self::timestampForDate(self::FIRST_DAY);
         if ($this->timestamp < $from) {
             throw new InvalidArgumentException(self::FIRST_DAY.' - '.self::LAST_DAY);
         }
-        $end = $this->timestampForDate(self::LAST_DAY) + self::SECONDS_PER_DAY;
+        $end = self::timestampForDate(self::LAST_DAY) + self::SECONDS_PER_DAY;
         if ($this->timestamp >= $end) {
             throw new InvalidArgumentException(self::FIRST_DAY.' - '.self::LAST_DAY);
         }
 
         $days = (int)round(($this->dayStartAt($this->timestamp) - $from) / self::SECONDS_PER_DAY);
         for ($year = self::MIN_YEAR; $year <= self::MAX_YEAR; $year += 1) {
-            $info = $this->yearInfo($year);
+            $info = self::yearInfo($year);
             if ($days >= $info['total_days']) {
                 $days -= $info['total_days'];
             } else {
@@ -110,13 +159,13 @@ class LunarDate
         return $date->getTimestamp();
     }
 
-    protected function timestampForDate(string $str): int
+    protected static function timestampForDate(string $str): int
     {
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $str.' 00:00:00', new DateTimeZone(self::DATE_TIME_ZONE));
         return $date->getTimestamp();
     }
 
-    protected function yearInfo(int $year): array
+    protected static function yearInfo(int $year): array
     {
         $raw = self::yearRawInfo($year);
         $info = [];
@@ -139,7 +188,7 @@ class LunarDate
         return $info;
     }
 
-    protected function yearRawInfo(int $year): int
+    protected static function yearRawInfo(int $year): int
     {
         $yearList = [
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
