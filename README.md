@@ -1,4 +1,7 @@
 # dragon
+
+[![Build Status](https://travis-ci.com/stiction/dragon.svg?branch=master)](https://travis-ci.com/stiction/dragon)
+
 中文相关的一些工具类
 
 ## Installation
