@@ -40,6 +40,7 @@ class IdentityParserTest extends TestCase
         $this->assertFalse($parser->parse('36112319820726252'));
         $this->assertFalse($parser->parse('361123198207262521'));
         $this->assertFalse($parser->parse('3611231982072625w6'));
+        $this->assertFalse($parser->parse("361123198207262526\n"));
 
         $numbers = [
             '36112319820631252',

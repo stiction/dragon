@@ -77,6 +77,9 @@ class IdentityParser
 
     protected function parseParts(string $number)
     {
+        if (strlen($number) !== self::LENGTH) {
+            return false;
+        }
         $number = strtoupper($number);
         if (! preg_match('/^(\d{6})(\d{8})(\d{3})(\d|X)$/', $number, $match)) {
             return false;
