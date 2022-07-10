@@ -7,7 +7,7 @@ class MiscTest extends TestCase
 {
     public function testCheckMobile()
     {
-        $misc = new Misc;
+        $misc = new Misc();
         $this->assertFalse($misc->checkMobile(''));
         $this->assertFalse($misc->checkMobile('12800138000'));
         $this->assertFalse($misc->checkMobile('138001380001'));

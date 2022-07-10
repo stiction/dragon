@@ -16,11 +16,12 @@ composer require stiction/dragon
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\Name;
 
-$name = new Name;
+$name = new Name();
 
 // 随机姓氏
 var_dump($name->randomSurname());
@@ -28,33 +29,37 @@ var_dump($name->randomSurname());
 var_dump($name->randomFirstName());
 // 随机全名
 var_dump($name->randomFullName());
+
 ```
 
 ### 格言
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\Inspiring;
 
-$inspiring = new Inspiring;
+$inspiring = new Inspiring();
 
 // string 一条格言
 var_dump($inspiring->one());
 // string[] 所有格言
 var_dump($inspiring->all());
+
 ```
 
 ### 行政区划
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\Region;
 
-$region = new Region;
+$region = new Region();
 
 // 所有区划
 var_dump($region->all());
@@ -74,17 +79,19 @@ array(3) {
 var_dump($region->find('440300'));
 // 查找子区划
 var_dump($region->subregions('440300'));
+
 ```
 
 ### 身份证
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\IdentityParser;
 
-$parser = new IdentityParser;
+$parser = new IdentityParser();
 
 // 计算校验位，大写表示
 // string(1) "X"
@@ -110,21 +117,24 @@ array(6) {
 var_dump($parser->parse('36112319820726197x'));
 // bool(false)
 var_dump($parser->parse('361123198207261976'));
+
 ```
 
 ### 银行卡
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\Bank;
 
-$bank = new Bank;
+$bank = new Bank();
 
 // 计算银行卡校验位数字
 // int(7)
 var_dump($bank->calcCheckNumber('622841407026350141'));
+
 ```
 
 ### 农历
@@ -134,6 +144,7 @@ var_dump($bank->calcCheckNumber('622841407026350141'));
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\LunarDate;
@@ -157,30 +168,33 @@ var_dump($date->info());
 
 /******** 农历转公历时间戳 ********/
 $timestamp = LunarDate::toSolar(1969, 11, 24);
-$date = new \DateTime('@'.$timestamp);
+$date = new \DateTime('@' . $timestamp);
 $date->setTimeZone(new DateTimeZone('Asia/Shanghai'));
 // string(10) "1970-01-01"
 var_dump($date->format('Y-m-d'));
 
 // 闰月
 $timestamp = LunarDate::toSolar(2020, 4, 5, true);
-$date = new \DateTime('@'.$timestamp);
+$date = new \DateTime('@' . $timestamp);
 $date->setTimeZone(new DateTimeZone('Asia/Shanghai'));
 // string(10) "2020-05-27"
 var_dump($date->format('Y-m-d'));
+
 ```
 
 ### 其他
 
 ```php
 <?php
+
 require 'vendor/autoload.php';
 
 use Stiction\Dragon\Misc;
 
-$misc = new Misc;
+$misc = new Misc();
 
 // 检查手机号码
 // bool(true)
 var_dump($misc->checkMobile('13800138000'));
+
 ```

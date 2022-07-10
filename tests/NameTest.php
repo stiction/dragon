@@ -7,19 +7,19 @@ class NameTest extends TestCase
 {
     public function testRandomSurname()
     {
-        $name = new Name;
+        $name = new Name();
         $this->assertIsString($name->randomSurname());
     }
 
     public function testRandomFirstName()
     {
-        $name = new Name;
+        $name = new Name();
         $this->assertIsString($name->randomFirstName());
     }
 
     public function testRandomFullName()
     {
-        $name = new Name;
+        $name = new Name();
         $this->assertIsString($name->randomFullName());
     }
 }

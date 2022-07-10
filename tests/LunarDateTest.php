@@ -50,7 +50,7 @@ class LunarDateTest extends TestCase
         foreach ($items as $item) {
             try {
                 LunarDate::toSolar($item[0], $item[1], $item[2], $item[3]);
-                $this->fail('should throws an InvalidArgumentException for inputs: '.implode(', ', $item));
+                $this->fail('should throws an InvalidArgumentException for inputs: ' . implode(', ', $item));
             } catch (InvalidArgumentException $e) {
                 $count += 1;
             }
@@ -68,7 +68,7 @@ class LunarDateTest extends TestCase
     protected function checkToSolar(array $info, string $solar)
     {
         $timestamp = LunarDate::toSolar($info['year'], $info['month'], $info['day'], $info['leap']);
-        $date = new DateTime('@'.$timestamp);
+        $date = new DateTime('@' . $timestamp);
         $date->setTimeZone(new DateTimeZone('Asia/Shanghai'));
         $this->assertSame($solar, $date->format('Y-m-d'));
     }
@@ -135,7 +135,7 @@ class LunarDateTest extends TestCase
 
     protected function timestampForDate(string $str): int
     {
-        $date = DateTime::createFromFormat('Y-m-d H:i:s', $str.' 00:00:00', new DateTimeZone('Asia/Shanghai'));
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $str . ' 00:00:00', new DateTimeZone('Asia/Shanghai'));
         return $date->getTimestamp();
     }
 }

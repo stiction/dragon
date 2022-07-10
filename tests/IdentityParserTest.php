@@ -7,7 +7,7 @@ class IdentityParserTest extends TestCase
 {
     public function testCalcCheckChar()
     {
-        $parser = new IdentityParser;
+        $parser = new IdentityParser();
         $this->assertFalse($parser->calcCheckChar('3611231982072619'));
         $this->assertFalse($parser->calcCheckChar('361123r9820726197'));
         $this->assertEquals('X', $parser->calcCheckChar('36112319820726197'));
@@ -16,8 +16,9 @@ class IdentityParserTest extends TestCase
 
     public function testParse()
     {
-        $parser = new IdentityParser;
-        $this->assertEquals([
+        $parser = new IdentityParser();
+        $this->assertEquals(
+            [
                 'whole' => '36112319820726197X',
                 'region' => '361123',
                 'birthday' => '1982-07-26',
@@ -27,7 +28,8 @@ class IdentityParserTest extends TestCase
             ],
             $parser->parse('36112319820726197x')
         );
-        $this->assertEquals([
+        $this->assertEquals(
+            [
                 'whole' => '361123198207262526',
                 'region' => '361123',
                 'birthday' => '1982-07-26',

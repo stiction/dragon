@@ -96,11 +96,11 @@ class LunarDate
     {
         $from = self::timestampForDate(self::FIRST_DAY);
         if ($this->timestamp < $from) {
-            throw new InvalidArgumentException(self::FIRST_DAY.' - '.self::LAST_DAY);
+            throw new InvalidArgumentException(self::FIRST_DAY . ' - ' . self::LAST_DAY);
         }
         $end = self::timestampForDate(self::LAST_DAY) + self::SECONDS_PER_DAY;
         if ($this->timestamp >= $end) {
-            throw new InvalidArgumentException(self::FIRST_DAY.' - '.self::LAST_DAY);
+            throw new InvalidArgumentException(self::FIRST_DAY . ' - ' . self::LAST_DAY);
         }
 
         $days = (int)round(($this->dayStartAt($this->timestamp) - $from) / self::SECONDS_PER_DAY);
@@ -153,7 +153,7 @@ class LunarDate
 
     protected function dayStartAt(int $timestamp): int
     {
-        $date = new DateTime('@'.$timestamp);
+        $date = new DateTime('@' . $timestamp);
         $date->setTimeZone(new DateTimeZone(self::DATE_TIME_ZONE));
         $date->setTime(0, 0, 0);
         return $date->getTimestamp();
@@ -161,7 +161,7 @@ class LunarDate
 
     protected static function timestampForDate(string $str): int
     {
-        $date = DateTime::createFromFormat('Y-m-d H:i:s', $str.' 00:00:00', new DateTimeZone(self::DATE_TIME_ZONE));
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $str . ' 00:00:00', new DateTimeZone(self::DATE_TIME_ZONE));
         return $date->getTimestamp();
     }
 
